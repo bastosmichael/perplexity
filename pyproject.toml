@@ -1,13 +1,20 @@
 [tool.poetry]
 name = "perplexity"
 version = "0.1.0"
-description = ""
+description = "A FastAPI backend application designed to integrate with vector databases, LangChain, HuggingFace, and OpenAI."
 authors = ["Michael Bastos <bastosmichael@gmail.com>"]
 readme = "README.md"
+license = "GPL-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+fastapi = "^0.68.2"
+uvicorn = "^0.15.0"
+# include here any specific packages for vector databases, LangChain, HuggingFace, and OpenAI that your project needs
 
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+# Include here any dev-dependencies, such as testing frameworks, linters, etc.
 
 [build-system]
 requires = ["poetry-core"]
