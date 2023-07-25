@@ -45,7 +45,7 @@ poetry install
 
 Run the application:
 ```bash
-uvicorn main:app --reload
+poetry run uvicorn main:app --reload
 ```
 
 The server should be running and the API can be accessed at `localhost:8000`.
