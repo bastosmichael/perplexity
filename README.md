@@ -2,6 +2,8 @@
 
 Perplexity API is a high-performance FastAPI backend application designed to seamlessly integrate with vector databases, LangChain, HuggingFace, and OpenAI. It uses an OpenAPI spec and Swagger utilizing JSON Schema to provide a robust and scalable backend solution for AI and machine learning applications. 
 
+![Screenshot 2023-07-24 at 7 24 36 PM](https://github.com/bastosmichael/perplexity/assets/1518708/86e84dad-7a2e-4d0c-be58-ca25721bda98)
+
 ## Features
 
 - **FastAPI Backend**: Offers a high-performance backend solution that incorporates modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints.
