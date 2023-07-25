@@ -23,6 +23,9 @@ async def generate_chat_response(data: ChatRequest):
 async def chat(data: ChatRequest) -> StreamingResponse:
     return await generate_chat_response(data)
 
-if __name__ == "__main__":
+def main():
     import uvicorn
-    uvicorn.run(app)
+    uvicorn.run("perplexity.main:app", host="0.0.0.0", port=8000, log_level="info")
+
+if __name__ == "__main__":
+    main()

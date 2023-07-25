@@ -47,7 +47,7 @@ poetry install
 
 Run the application:
 ```bash
-poetry run uvicorn perplexity.main:app --reload
+poetry run perplexity
 ```
 
 The server should be running and the API can be accessed at `localhost:8000`.
