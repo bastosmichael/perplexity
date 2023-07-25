@@ -11,6 +11,9 @@ python = "^3.11"
 fastapi = "^0.68.2"
 uvicorn = "^0.15.0"
 # include here any specific packages for vector databases, LangChain, HuggingFace, and OpenAI that your project needs
+langchain = "^0.0.240"
+python-dotenv = "^1.0.0"
+openai = "^0.27.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
