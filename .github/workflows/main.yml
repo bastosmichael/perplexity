@@ -39,6 +39,10 @@ jobs:
       run: |
         poetry run pytest
 
+    - name: Copy .env.example to .env
+      run: |
+        cp .env.example .env
+
     - name: Run FastAPI and then cancel
       run: |
         timeout 5s poetry run perplexity
