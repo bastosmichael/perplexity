@@ -47,7 +47,7 @@ poetry install
 
 Run the application:
 ```bash
-poetry run uvicorn main:app --reload
+poetry run uvicorn perplexity.main:app --reload
 ```
 
 The server should be running and the API can be accessed at `localhost:8000`.
@@ -55,6 +55,24 @@ The server should be running and the API can be accessed at `localhost:8000`.
 ### API Documentation
 
 The API documentation can be viewed at `localhost:8000/docs` when the server is running. The documentation is interactive, so you can test out API calls directly in your browser.
+
+### Running Tests
+
+After installing the necessary dependencies, you can run the test suite using `pytest`. The command `poetry run pytest` runs `pytest` within the project's virtual environment:
+
+```bash
+poetry run pytest
+```
+
+This command will discover all test cases in your project (i.e., all files matching the pattern `test_*.py` or `*_test.py` in the current directory and subdirectories) and run them.
+
+If you want to run a specific test file, you can specify it directly. For example, to only run the tests in `test_main.py`, you can use the following command:
+
+```bash
+poetry run pytest tests/test_main.py
+```
+
+For more advanced usage, please refer to the [`pytest` documentation](https://docs.pytest.org/en/latest/).
 
 ## Contributing
 
