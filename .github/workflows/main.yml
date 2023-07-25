@@ -45,4 +45,4 @@ jobs:
 
     - name: Run FastAPI and then cancel
       run: |
-        timeout 5s poetry run perplexity
+        timeout 5s poetry run perplexity || true
