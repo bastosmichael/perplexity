@@ -17,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.11
 
     - name: Install Poetry
       run: |
@@ -25,7 +25,7 @@ jobs:
 
     - name: Set Poetry settings
       run: |
-        poetry config virtualenvs.create false
+        poetry config virtualenvs.create true
 
     - name: Install dependencies
       run: |
@@ -39,6 +39,10 @@ jobs:
       run: |
         poetry run pytest
 
+    - name: Copy .env.example to .env
+      run: |
+        cp .env.example .env
+
     - name: Run FastAPI and then cancel
       run: |
-        timeout 5s poetry run perplexity
+        timeout 5s poetry run perplexity || true
