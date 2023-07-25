@@ -6,12 +6,14 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from .templates import CHAT_PROMPT_TEMPLATE
 
+
 class StreamingConversationChain:
     """
     Class for handling streaming conversation chains.
     It creates and stores memory for each conversation,
     and generates responses using the ChatOpenAI model from LangChain.
     """
+
     def __init__(self, openai_api_key: str, temperature: float = 0.0):
         self.memories = {}
         self.openai_api_key = openai_api_key

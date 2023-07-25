@@ -1,5 +1,6 @@
 from perplexity.models import ChatRequest
 
+
 def test_chat_request_model():
     data = {"conversation_id": "123", "message": "Hello, world!"}
     chat_request = ChatRequest(**data)
