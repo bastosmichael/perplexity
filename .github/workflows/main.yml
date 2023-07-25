@@ -1,0 +1,44 @@
+name: Python application test with Poetry
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Set Poetry settings
+      run: |
+        poetry config virtualenvs.create false
+
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: Lint with Black
+      run: |
+        poetry run black --check .
+
+    - name: Test with Pytest
+      run: |
+        poetry run pytest
+
+    - name: Run FastAPI and then cancel
+      run: |
+        timeout 5s poetry run perplexity
