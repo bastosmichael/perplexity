@@ -1,4 +1,4 @@
-from perplexity.models import ChatRequest
+from perplexity.models.chat_request import ChatRequest
 
 
 def test_chat_request_model():
