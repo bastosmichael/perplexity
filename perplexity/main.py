@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from perplexity.routers import router
 from perplexity.settings import get_settings
 
-app = FastAPI(dependencies=[Depends(get_settings)])
+app = FastAPI(title="PerplexityAPI", dependencies=[Depends(get_settings)])
 
 # include routers
 app.include_router(router)
