@@ -2,7 +2,17 @@ import asyncio
 from typing import AsyncGenerator
 from langchain.callbacks import AsyncIteratorCallbackHandler
 from langchain.chains import ConversationChain
-from langchain.chat_models import ChatOpenAI, ChatAnthropic
+from langchain.chat_models import (
+    ChatAnthropic,
+    AzureChatOpenAI,
+    FakeListChatModel,
+    ChatGooglePalm,
+    HumanInputChatModel,
+    JinaChat,
+    ChatOpenAI,
+    PromptLayerChatOpenAI,
+    ChatVertexAI,
+)
 from langchain.memory import ConversationBufferMemory
 from .templates import CHAT_PROMPT_TEMPLATE
 
@@ -13,6 +23,19 @@ class StreamingConversationChain:
     It creates and stores memory for each conversation,
     and generates responses using the provided language model.
     """
+
+    MODEL_CLASSES = {
+        "ChatAnthropic": ChatAnthropic,
+        "AzureChatOpenAI": AzureChatOpenAI,
+        "FakeListChatModel": FakeListChatModel,
+        "ChatGooglePalm": ChatGooglePalm,
+        "HumanInputChatModel": HumanInputChatModel,
+        "JinaChat": JinaChat,
+        "ChatOpenAI": ChatOpenAI,
+        "PromptLayerChatOpenAI": PromptLayerChatOpenAI,
+        "ChatVertexAI": ChatVertexAI
+        # You can add more models here
+    }
 
     def __init__(self, model_type: str, api_key: str, temperature: float = 0.0):
         self.memories = {}
