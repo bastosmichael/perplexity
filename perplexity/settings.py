@@ -10,6 +10,13 @@ class Settings(BaseSettings):
 
     openai_api_key: str
     anthropic_api_key: str
+    azure_openai_api_key: str
+    fake_list_api_key: str
+    google_palm_api_key: str
+    human_input_api_key: str
+    jina_api_key: str
+    prompt_layer_openai_api_key: str
+    vertex_ai_api_key: str
 
     class Config:
         env_file = ".env"
