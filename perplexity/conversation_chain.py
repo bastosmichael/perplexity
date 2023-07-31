@@ -2,18 +2,8 @@ import asyncio
 from typing import AsyncGenerator
 from langchain.callbacks import AsyncIteratorCallbackHandler
 from langchain.chains import ConversationChain
-from langchain.chat_models import (
-    ChatAnthropic,
-    AzureChatOpenAI,
-    FakeListChatModel,
-    ChatGooglePalm,
-    HumanInputChatModel,
-    JinaChat,
-    ChatOpenAI,
-    PromptLayerChatOpenAI,
-    ChatVertexAI,
-)
 from langchain.memory import ConversationBufferMemory
+from perplexity.models.model_classes import MODEL_CLASSES
 from .templates import CHAT_PROMPT_TEMPLATE
 
 
@@ -24,19 +14,6 @@ class StreamingConversationChain:
     and generates responses using the provided language model.
     """
 
-    MODEL_CLASSES = {
-        "ChatAnthropic": ChatAnthropic,
-        "AzureChatOpenAI": AzureChatOpenAI,
-        "FakeListChatModel": FakeListChatModel,
-        "ChatGooglePalm": ChatGooglePalm,
-        "HumanInputChatModel": HumanInputChatModel,
-        "JinaChat": JinaChat,
-        "ChatOpenAI": ChatOpenAI,
-        "PromptLayerChatOpenAI": PromptLayerChatOpenAI,
-        "ChatVertexAI": ChatVertexAI
-        # You can add more models here
-    }
-
     def __init__(self, model_type: str, api_key: str, temperature: float = 0.0):
         self.memories = {}
         self.api_key = api_key
@@ -45,22 +22,20 @@ class StreamingConversationChain:
 
     def get_model(self):
         callback_handler = AsyncIteratorCallbackHandler()
-        if self.model_type == "ChatOpenAI":
-            return ChatOpenAI(
-                callbacks=[callback_handler],
-                streaming=True,
-                temperature=self.temperature,
-                openai_api_key=self.api_key,
-            )
-        elif self.model_type == "ChatAnthropic":
-            return ChatAnthropic(
-                callbacks=[callback_handler],
-                streaming=True,
-                temperature=self.temperature,
-                anthropic_api_key=self.api_key,
-            )
-        else:
+        model_info = MODEL_CLASSES.get(self.model_type)
+
+        if model_info is None:
             raise ValueError(f"Invalid model type: {self.model_type}")
+
+        ModelClass = model_info["class"]
+        api_key_name = model_info["api_key_name"]
+
+        return ModelClass(
+            callbacks=[callback_handler],
+            streaming=True,
+            temperature=self.temperature,
+            **{api_key_name: self.api_key},
+        )
 
     async def generate_response(
         self, conversation_id: str, message: str
