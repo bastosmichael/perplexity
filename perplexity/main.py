@@ -6,24 +6,33 @@ from perplexity.conversation_chain import StreamingConversationChain
 
 app = FastAPI(dependencies=[Depends(get_settings)])
 
-streaming_conversation_chain = StreamingConversationChain(
-    openai_api_key=get_settings().openai_api_key
+openai_conversation_chain = StreamingConversationChain(
+    model_type="ChatOpenAI", api_key=get_settings().openai_api_key, temperature=0.5
+)
+
+anthropic_conversation_chain = StreamingConversationChain(
+    model_type="ChatAnthropic",
+    api_key=get_settings().anthropic_api_key,
+    temperature=0.5,
 )
 
 
 @app.post("/openai", response_class=StreamingResponse)
-async def generate_chat_response(data: ChatRequest):
+async def generate_openai_chat_response(data: ChatRequest):
     return StreamingResponse(
-        streaming_conversation_chain.generate_response(
-            data.conversation_id, data.message
-        ),
+        openai_conversation_chain.generate_response(data.conversation_id, data.message),
         media_type="text/event-stream",
     )
 
 
-@app.post("/openai", response_class=StreamingResponse)
-async def chat(data: ChatRequest) -> StreamingResponse:
-    return await generate_chat_response(data)
+@app.post("/anthropic", response_class=StreamingResponse)
+async def generate_anthropic_chat_response(data: ChatRequest):
+    return StreamingResponse(
+        anthropic_conversation_chain.generate_response(
+            data.conversation_id, data.message
+        ),
+        media_type="text/event-stream",
+    )
 
 
 def main():
